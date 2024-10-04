@@ -1,0 +1,57 @@
+2a. Course Name: Angular JS
+Module Name: Structural Directives - ngIf Create a login form with username and password fields. If the user enters the correct  credentials, it should render a "Welcome
+<<username>>" message otherwise it should  render "Invalid Login!!! Please try again..." message
+
+1.  ng new third --no-standalone  
+2.  ng generate component login
+3.  login.component.html
+
+<div *ngIf="!isLoggedIn; else welcomeMessage">
+<h2>Login</h2>
+<form (ngSubmit)="login()">
+<label for="username">Username:</label>
+<input type="text" id="username" [(ngModel)]="username" name="username" required>
+<label for="password">Password:</label>
+<input type="password" id="password" [(ngModel)]="password" name="password" required>
+<button type="submit">Login</button>
+</form>
+</div>
+<ng-template #welcomeMessage>
+<h2>Welcome {{ username }}</h2>
+</ng-template>
+<div *ngIf="loginFailed" style="color: red;">
+Invalid Login!!! Please try again...
+</div>
+4.
+include forms modules inside app.module.ts
+import { FormsModule } from '@angular/forms';
+imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule
+  ],
+login.component.ts
+export class LoginComponent {
+  isLoggedIn: boolean = false;
+  loginFailed: boolean = false;
+  username: string = '';
+  password: string = '';
+  login(): void {
+       if (this.username === 'admin' && this.password ==='admin') 
+      { 
+            this.isLoggedIn = true;
+      } 
+      else {
+           this.loginFailed = true; 
+           }
+  
+     }
+  }
+
+app.component.html
+<app-login></app-login>
+
+To run:
+ng serve
+
+
